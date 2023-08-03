@@ -22,10 +22,14 @@ body {
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
+#axom-breaking-big-card-append {
+  max-width: 440px;
+}
+
 .big-card {
   overflow: hidden;
-  /* width: 300px; */
-  max-width: 440px;
+  /* max-width: 440px; */
+  max-width: 450px;
   cursor: pointer;
 }
 
@@ -77,7 +81,7 @@ body {
 }
 
 .container {
-  padding: 0 20%;
+  padding: 0 15%;
   /* padding: 0 10%; */
   margin-bottom: 10%;
 }
@@ -181,7 +185,8 @@ body {
 
 .medium-card {
   overflow: hidden;
-  width: 240px;
+  /* width: 240px; */
+  max-width: 320px;
   cursor: pointer;
 }
 
@@ -446,6 +451,10 @@ img:hover {
   filter: drop-shadow(0px 0px 10px black);
   font-weight: bold;
   font-size: 14px;
+}
+
+.news-grid-content {
+  margin-bottom: 4%;
 }
 
 @media only screen and (max-width: 1543px) {

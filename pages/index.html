@@ -9,6 +9,7 @@
 
    <link rel="stylesheet" href="../styles/navbar.css" />
    <link rel="stylesheet" href="../styles/index.css">
+   <link rel="stylesheet" href="../styles/slider.css">
 
    <!-- static file ends -->
 
@@ -22,6 +23,10 @@
       integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
    <!-- font awsome ends -->
+
+   <!-- swiper.js cdn link -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+   <!-- swipper.js cdn ends -->
 </head>
 <body>
 
@@ -36,14 +41,11 @@
       </div> -->
 
       <!-- advertise ends -->
-      <div>
 
+      <!-- trending card section, this is the first section where we have 3 cards, first two are in a row and the third one is huge -->
+      <div id="trending-news">
          <div class="news-div-titles">
-
-            <!-- todo -->
             <h3>TRENDING</h3>
-
-
          </div>
          <div class="news-breaking-cotainer">
             <div class="breaking-cards-half">
@@ -75,9 +77,9 @@
          </div>
       </div>
 
-      <div class="news-div-first">
+      <!-- axomiya breaking news that is the second part or section here -->
+      <div id="axom-breaking-news" class="news-div-first">
          <div class="news-div-titles">
-
             <!-- todo -->
             <h3>অসম</h3>
             <div class="news-title-buttons">
@@ -90,22 +92,25 @@
             </div>
 
          </div>
-
-         <!-- first half card -->
-         <div id="first-half" class="news-card-content">
-            <div class="big-card">
-               <div class="big-card-image">
-                  <img
-                     src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
-               </div>
-               <div class="big-card-body">
-                  <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
-                  <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ উত্থাপন
-                     হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+         <div class="news-card-content">
+            <div id="axom-breaking-big-card-append">
+               <!-- needs to append big card here using javascript -->
+               <div class="big-card">
+                  <div class="big-card-image">
+                     <img
+                        src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                  </div>
+                  <div class="big-card-body">
+                     <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                     <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                        উত্থাপন
+                        হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                  </div>
                </div>
             </div>
             <div class="vertical-devider"></div>
-            <div class="axom-news-cards">
+            <div id="axom-breaking-vertical-append" class="axom-news-cards">
+               <!-- needs to append the 5 vertical cards here -->
                <div class="small-cards">
                   <div class="small-card-image-outer">
                      <img
@@ -166,7 +171,8 @@
 
             </div>
             <div class="vertical-devider"></div>
-            <div>
+            <div id="axom-breaking-medium-card-append">
+               <!-- needs to append the medium card here  -->
                <div class="medium-card">
                   <div class="medium-card-image">
                      <img
@@ -183,152 +189,252 @@
                </div>
             </div>
          </div>
-         <!-- first half ends -->
+      </div>
 
-         <br>
-         <div id="second-half" class="news-grid-content">
-            <div class="news-grid-title-cotainer">
-               <div class="horizontal-devider"></div>
-               <h2>দেশ</h2>
-               <div class="horizontal-devider"></div>
+
+
+
+
+
+      <!-- here we can find the slide that will contain 4 cards at a time -->
+      <div class="slide-main-container swiper">
+         <div id="sldie-title" class="news-div-titles" style="background-color: white;">
+            <!-- todo -->
+            <h3>বিশ্ব</h3>
+            <div class="news-title-buttons">
+               <a href="#" class="active_news_button">অধিক পঢ়ক</a>
             </div>
-            <div class="news-grid">
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F8cc3b10d-880b-4ad1-838f-e47b76c58ac9%2Fnatak.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
+         </div>
+         <div class="slide-outer swiper">
+            <div class=" slide-container">
+               <div class="card-wrapper swiper-wrapper">
+                  <div class="big-card swiper-cards swiper-slide">
+                     <div class="big-card-image">
+                        <img
+                           src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                     </div>
+                     <div class="big-card-body">
+                        <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                        <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                           উত্থাপন
+                           হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                     </div>
                   </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>নাট্যশিল্পী ৰাজ মেধিৰ সোৱঁৰণত অনুষ্ঠিত নাট কৰ্মশালাৰ সামৰণি </h4>
-                     <h5>42 minutes ago</h5>
+                  <div class="big-card swiper-cards swiper-slide">
+                     <div class="big-card-image">
+                        <img
+                           src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                     </div>
+                     <div class="big-card-body">
+                        <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                        <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                           উত্থাপন
+                           হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                     </div>
                   </div>
+                  <div class="big-card swiper-cards swiper-slide">
+                     <div class="big-card-image">
+                        <img
+                           src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                     </div>
+                     <div class="big-card-body">
+                        <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                        <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                           উত্থাপন
+                           হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                     </div>
+                  </div>
+                  <div class="big-card swiper-cards swiper-slide">
+                     <div class="big-card-image">
+                        <img
+                           src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                     </div>
+                     <div class="big-card-body">
+                        <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                        <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                           উত্থাপন
+                           হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                     </div>
+                  </div>
+                  <div class="big-card swiper-cards swiper-slide">
+                     <div class="big-card-image">
+                        <img
+                           src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                     </div>
+                     <div class="big-card-body">
+                        <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                        <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                           উত্থাপন
+                           হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                     </div>
+                  </div>
+                  <div class="big-card swiper-cards swiper-slide">
+                     <div class="big-card-image">
+                        <img
+                           src="https://images.news18.com/assam/uploads/2023/07/biman-da-2023-07-6dc6e612d8cafd7d8146e56c4eeb1dab-3x2.jpg?impolicy=website&width=280&height=186" />
+                     </div>
+                     <div class="big-card-body">
+                        <h3>ঘগ্ৰাপাৰ থানা কাণ্ডৰ মূল অভিযুক্ত বিমান চন্দ্ৰ ৰয়ৰ বিৰুদ্ধে আন এক গোচৰ</h3>
+                        <p>নাবালিকাক থানাৰ ভিতৰত আপত্তিজনক ফটো লোৱাৰ অভিযোগত গ্ৰেপ্তাৰ হৈছিল বিমান চন্দ্ৰ ৰয়। অভিযোগ
+                           উত্থাপন
+                           হোৱাৰ পিছত কিছুদিন পলাই থকা বিমান চন্দ্ৰ ৰয়. . .</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="swiper-button-next swiper-navBtn"></div>
+         <div class="swiper-button-prev swiper-navBtn"></div>
+      </div>
 
+
+
+
+
+
+
+
+
+
+      <!-- from this section we can see grid of news cards 3 per row initially -->
+      <div id="country-news-grid" class="news-grid-content">
+         <div class="news-grid-title-cotainer">
+            <div class="horizontal-devider"></div>
+            <h2>দেশ</h2>
+            <div class="horizontal-devider"></div>
+         </div>
+         <div class="news-grid">
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F8cc3b10d-880b-4ad1-838f-e47b76c58ac9%2Fnatak.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>নাট্যশিল্পী ৰাজ মেধিৰ সোৱঁৰণত অনুষ্ঠিত নাট কৰ্মশালাৰ সামৰণি </h4>
+                  <h5>42 minutes ago</h5>
                </div>
 
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ</h4>
-                     <h5>65 minutes ago</h5>
-                  </div>
+            </div>
 
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ</h4>
+                  <h5>65 minutes ago</h5>
                </div>
 
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...</h4>
-                     <h5>70 minutes ago</h5>
-                  </div>
+            </div>
+
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...</h4>
+                  <h5>70 minutes ago</h5>
+               </div>
+            </div>
+
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...</h4>
+                  <h5>70 minutes ago</h5>
                </div>
 
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...</h4>
-                     <h5>70 minutes ago</h5>
-                  </div>
+            </div>
 
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ</h4>
+                  <h5>65 minutes ago</h5>
                </div>
 
+            </div>
 
-
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ</h4>
-                     <h5>65 minutes ago</h5>
-                  </div>
-
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F8cc3b10d-880b-4ad1-838f-e47b76c58ac9%2Fnatak.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>নাট্যশিল্পী ৰাজ মেধিৰ সোৱঁৰণত অনুষ্ঠিত নাট কৰ্মশালাৰ সামৰণি </h4>
+                  <h5>42 minutes ago</h5>
                </div>
 
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F8cc3b10d-880b-4ad1-838f-e47b76c58ac9%2Fnatak.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>নাট্যশিল্পী ৰাজ মেধিৰ সোৱঁৰণত অনুষ্ঠিত নাট কৰ্মশালাৰ সামৰণি </h4>
-                     <h5>42 minutes ago</h5>
-                  </div>
+            </div>
 
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...</h4>
+                  <h5>70 minutes ago</h5>
                </div>
 
+            </div>
 
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...</h4>
-                     <h5>70 minutes ago</h5>
-                  </div>
-
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
+               </div>
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ</h4>
+                  <h5>65 minutes ago</h5>
                </div>
 
+            </div>
 
-
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ</h4>
-                     <h5>65 minutes ago</h5>
-                  </div>
-
+            <div class="news-grid-card">
+               <div class="news-grid-image-outer">
+                  <img
+                     src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F8cc3b10d-880b-4ad1-838f-e47b76c58ac9%2Fnatak.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
+                     alt="" />
                </div>
-
-               <div class="news-grid-card">
-                  <div class="news-grid-image-outer">
-                     <img
-                        src="https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F8cc3b10d-880b-4ad1-838f-e47b76c58ac9%2Fnatak.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0"
-                        alt="" />
-                  </div>
-                  <div class="news-grid-body">
-                     <h5>দেশ</h5>
-                     <h4>নাট্যশিল্পী ৰাজ মেধিৰ সোৱঁৰণত অনুষ্ঠিত নাট কৰ্মশালাৰ সামৰণি </h4>
-                     <h5>42 minutes ago</h5>
-                  </div>
-
+               <div class="news-grid-body">
+                  <h5>দেশ</h5>
+                  <h4>নাট্যশিল্পী ৰাজ মেধিৰ সোৱঁৰণত অনুষ্ঠিত নাট কৰ্মশালাৰ সামৰণি </h4>
+                  <h5>42 minutes ago</h5>
                </div>
-
-
-
 
             </div>
          </div>
       </div>
-      <script src="../scripts/index.js" type="module"></script>
+
+
+
+   </div>
+   <script src="../scripts/index.js" type="module"></script>
+   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>
 </html>

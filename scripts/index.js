@@ -1,5 +1,5 @@
 import navbar from "../components/navbar.js";
-// import Swiper from "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs";
+import Swiper from "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs";
 
 // here adding the slider code
 // slider code stating
@@ -39,6 +39,7 @@ const swiper = new Swiper(".slide-container", {
     },
     1000: {
       slidesPerView: 4,
+      width: 1200,
     },
   },
 });
@@ -48,4 +49,7 @@ window.onload = () => {
   document
     .querySelector(".container")
     .insertAdjacentHTML("beforebegin", navbar());
+
+  console.log(swiper);
+  console.log("logo");
 };

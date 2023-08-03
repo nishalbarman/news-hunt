@@ -20,7 +20,7 @@ div.swiper-cards {
   border-radius: 4px;
   margin-bottom: 15px;
   margin-left: 5px;
-  width: fit-content;
+  width: 300px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
@@ -71,7 +71,15 @@ div.swiper-navBtn {
   border-radius: 50%;
   background-color: red;
 }
-div.swiper-navBtn::before,
+
+div.swiper-navBtn {
+  border-radius: 0px;
+  height: 60px;
+  width: 30px;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.swip div.swiper-navBtn::before,
 div.swiper-navBtn::after {
   font-size: 15px;
 }

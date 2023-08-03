@@ -107,3 +107,175 @@
   text-decoration: none;
   vertical-align: middle;
 }
+
+/* --------------------------- */
+/* responsive mobile menu start*/
+/* --------------------------- */
+
+#side-menu {
+  padding: 20px 20px;
+  border-radius: 10px;
+  margin-left: -20px;
+}
+
+#side-menu:hover {
+  background-color: rgb(238, 14, 70);
+  background-color: red;
+  cursor: pointer;
+  color: white !important;
+}
+
+.menu_mobile {
+  display: none;
+  justify-content: start;
+  width: 100%;
+}
+
+.menu-items-outer {
+  display: none;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 300px;
+  left: -80%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 40px 20px;
+  height: 100%;
+  animation-name: side-menu-animation;
+  /* animation-duration: 400ms; */
+  animation-duration: 300ms;
+}
+
+.side-menu-reverse {
+  animation-name: side-menu-rev;
+  animation-duration: 400ms;
+}
+
+.menu-items-outer > div.logo_new {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-items-outer > div > img {
+  width: 100px;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10%;
+  width: 100%;
+}
+
+.menu-links > a {
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.menu-links > a.active {
+  background-color: rgb(238, 14, 70);
+  background-color: red;
+  color: white;
+}
+
+.horizontal-line {
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.menu-links > a:hover:not(.active) {
+  background-color: rgba(124, 124, 124, 0.1);
+  color: black !important;
+}
+
+#close {
+  cursor: pointer;
+  padding: 16px;
+  border-radius: 20px;
+}
+
+#close:hover {
+  background-color: rgb(227, 37, 37);
+  color: white !important;
+}
+
+@keyframes side-menu-animation {
+  from {
+    left: -50%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes side-menu-rev {
+  from {
+    left: 0;
+  }
+  to {
+    left: -80%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    scale: 0.1;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 0.1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 520ms;
+  /* 2s */
+  animation-play-state: running;
+  opacity: 1;
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 250ms;
+  opacity: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  div.navbar {
+    justify-content: center;
+    height: 80px;
+  }
+
+  .follow-icons {
+    display: none;
+  }
+
+  .news-logo > img[alt="website-logo"] {
+    width: 100px;
+  }
+
+  .second-half {
+    display: none;
+  }
+
+  .menu_mobile {
+    display: flex;
+  }
+}

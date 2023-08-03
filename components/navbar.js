@@ -26,6 +26,14 @@ function navbar() {
               <a href="#">প্ৰযুক্তি</a>
               <div class="horizontal-line"></div>
           </div>
+          <div class="follow-icons follow-menu">
+                    <a href="https://facebook.com/" target="_blank"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"
+                            class="social-icon" /></a>
+                    <a href="https://twitter.com" target="_blank"><img
+                            src="https://w7.pngwing.com/pngs/421/879/png-transparent-twitter-logo-social-media-iphone-organization-logo-twitter-computer-network-leaf-media.png"
+                            class="social-icon" /></a>
+                </div>
       </div>
   </div>
   <div class="news-logo">

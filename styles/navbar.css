@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   padding: 0 10%;
+  padding: 0 17.5%;
   gap: 4%;
   height: 130px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -257,6 +258,25 @@
   opacity: 0;
 }
 
+.follow-menu {
+  display: flex;
+  justify-content: center;
+  border: 0;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.follow-menu > a > img {
+  height: 30px;
+  width: 30px;
+}
+
+@media only screen and (max-width: 1543px) {
+  div.navbar {
+    padding: 0 5%;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   div.navbar {
     justify-content: center;
@@ -265,6 +285,10 @@
 
   .follow-icons {
     display: none;
+  }
+
+  .follow-menu {
+    display: flex;
   }
 
   .news-logo > img[alt="website-logo"] {

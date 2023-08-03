@@ -85,7 +85,7 @@ body {
 
 .container {
   padding: 0 20%;
-  /* padding: 0 10%; */
+  padding: 0 17.5%;
   margin-bottom: 10%;
 }
 
@@ -384,14 +384,14 @@ img:hover {
 
 .news-breaking-cotainer {
   display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 
 .breaking-cards-half {
   display: flex;
   flex-direction: column;
   height: fit-content;
-  gap: 5px;
+  gap: 8px;
   max-width: 50%;
 }
 
@@ -401,6 +401,7 @@ img:hover {
   height: 200px;
   max-width: 100%;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .breaking-card:hover {
@@ -436,6 +437,7 @@ img:hover {
   align-items: flex-end;
   width: 100%;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .middle-break-card > div {

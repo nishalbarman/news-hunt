@@ -38,7 +38,9 @@ body {
   overflow: hidden;
   max-width: 100%;
   margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 5px;
+  aspect-ratio: 16/9;
 }
 
 .big-card > .big-card-body {
@@ -197,9 +199,9 @@ body {
   /* height: 150px; */
   overflow: hidden;
   max-width: 100%;
-  /* margin-bottom: 10px; */
-  margin-bottom: 3px;
+  margin-bottom: 10px;
   border-radius: 5px;
+  aspect-ratio: 16/9;
 }
 
 .medium-card > .medium-card-body {

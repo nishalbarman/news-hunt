@@ -57,6 +57,9 @@ div.swiper-cards > div.big-card-body > p {
   -webkit-line-clamp: 3;
 }
 
+div.swiper-cards > div.big-card-image {
+  height: 200px;
+}
 .swiper-cards > div.big-card-image,
 .swiper-cards > div.big-card-image > img {
   border-bottom-left-radius: 0px;

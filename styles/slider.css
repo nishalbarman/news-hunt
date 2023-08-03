@@ -90,12 +90,36 @@ div.swiper-navBtn {
 div.swiper-navBtn::after {
   font-size: 15px;
 }
-.swiper-pagination-bullet {
+
+div.swiper-pagination {
+  display: none;
+}
+
+div.swiper-pagination-bullet {
   background-color: #000;
 }
 
 @media screen and (max-width: 768px) {
-  .swiper-navBtn {
+  div.swiper-navBtn {
     display: none;
+  }
+
+  .slide-main-container {
+    background-color: white;
+    padding: 0px 0px;
+  }
+
+  .slide-outer {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .slide-container {
+    margin: 10px 0px;
+    overflow: hidden;
+  }
+
+  div.swiper-pagination {
+    display: block;
   }
 }

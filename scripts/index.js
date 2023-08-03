@@ -34,11 +34,11 @@ const swiper = new Swiper(".slide-container", {
       width: 500,
     },
     768: {
-      slidesPerView: 3,
+      slidesPerView: 2.5,
       width: 1000,
     },
     1000: {
-      slidesPerView: 4,
+      slidesPerView: 3,
       width: 1200,
     },
   },

@@ -1,5 +1,5 @@
 import navbar from "../components/navbar.js";
-import Swiper from "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs";
+// import Swiper from "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs";
 
 // here adding the slider code
 // slider code stating

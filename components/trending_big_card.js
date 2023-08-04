@@ -17,12 +17,12 @@ function trending_big_card(object) {
 
   card.classList.add("middle-break-card");
 
-  card.style = `background-image: url(${image_url}); : center;background-repeat: no-repeat; background-size: cover;`;
+  // card.style = `background-image: url(${image_url}); : center;background-repeat: no-repeat; background-size: cover;`;
 
-  //   card.style.backgroundImage = `url('${image_url}')`;
-  //   card.style.backgroundPosition = `center`;
-  //   card.style.backgroundRepeat = `no-repeat`;
-  //   card.style.backgroundSize = `cover`;
+  card.style.backgroundImage = `url('${image_url}')`;
+  card.style.backgroundPosition = `center`;
+  card.style.backgroundRepeat = `no-repeat`;
+  card.style.backgroundSize = `cover`;
 
   title.textContent = news;
   published.textContent = publishedDate;

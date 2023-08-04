@@ -169,9 +169,11 @@ body {
 }
 
 .small-cards > .small-card-image-outer > img {
-  /* max-width: 100%; */
+  width: 100px;
+  max-width: 200px;
   border-radius: 5px;
   object-fit: cover;
+  aspect-ratio: 16/9;
 }
 
 .small-cards > div > h4 {

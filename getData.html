@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const AUTHTOKEN = "xBUKcKnXfngfrqGoF93y";
+        const ACCESS_TOKEN = "TjeNsXehJqhh2DGJzBY9";
+
+        const API = `https://prod.api.etvbharat.com/catalog_lists/app-new-headlines-home-assam.gzip?collective_ads_count=0&page=1&page_size=8&version=v2&response=r2&item_languages=asm&portal_state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+
+        fetch(API)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                // console.log(data.data);
+                iterateAndSave(data.data.catalog_list_items);
+            });
+
+        function iterateAndSave(data) {
+
+            data.forEach((element) => {
+                // console.log(element)
+                element.catalog_list_items.forEach((element) => {
+                    if (element.message !== "No Items Present") {
+                        console.log(element);
+                        try {
+                            const {
+                                title: news,
+                                genres: category,
+                                keywords,
+                                publish_date_uts,
+                                short_description: desc,
+                                thumbnails: { high_16_9: { url, alt_tags, caption } },
+                                web_url,
+                            } = element;
+
+                            const options = {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(
+                                    new createObject(
+                                        news,
+                                        keywords,
+                                        category,
+                                        publish_date_uts,
+                                        desc,
+                                        url,
+                                        web_url,
+                                        alt_tags,
+                                        caption
+                                    )
+                                ),
+                            };
+                            fetch("http://localhost:4000/assamese_news/", options)
+                                .then((res) => {
+                                    console.log(res.json());
+                                })
+                                .catch((err) => {
+                                    console.error(err);
+                                });
+                        } catch (error) {
+                            console.log(error);
+                        }
+
+                    }
+                });
+            });
+
+        }
+
+        function createObject(
+            news,
+            keywords,
+            category,
+            publish_date_uts,
+            desc,
+            url,
+            web_url,
+            alt_tags,
+            caption
+        ) {
+            this.news = news;
+            this.keywords = keywords;
+            this.category = category;
+            this.publishedDate = publish_date_uts;
+            this.desc = desc;
+            this.image_url = url;
+            this.web_url = web_url;
+            this.alt_tags = alt_tags;
+            this.caption = caption;
+        }
+    </script>
+</body>
+</html>

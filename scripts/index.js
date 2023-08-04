@@ -5,8 +5,8 @@ import navbar from "../components/navbar.js";
 import responsiveNess from "../components/navbarResponsive.js";
 import closeMenu from "../components/closeMenu.js";
 import Swiper from "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs";
-import tending_small_card from "/components/trending_small_cards.js";
-import tending_big_card from "/components/trending_big_card.js";
+import trending_small_card from "/components/trending_small_cards.js";
+import trending_big_card from "/components/trending_big_card.js";
 import breakingBigCard from "/components/breaking_news_big_card.js";
 import breakingMediumCard from "/components/breaking_news_medium_card.js";
 import breakingVerticalSmall from "/components/breaking_small_card_vertical.js";
@@ -15,6 +15,17 @@ import getJibonXoiliCard from "/components/jibom_xoili_card.js";
 /*--------------------------------------------------------*/
 /*  All the imports are at top, imported has been done    */
 /*--------------------------------------------------------*/
+
+/*--------------------------------------------------------*/
+/*  Auth and access token, here declared and initialised  */
+/*--------------------------------------------------------*/
+
+const AUTHTOKEN = "xBUKcKnXfngfrqGoF93y";
+const ACCESS_TOKEN = "TjeNsXehJqhh2DGJzBY9";
+
+/*---------------------------------------------------*/
+/*  Auth token and access token has been initialised */
+/*---------------------------------------------------*/
 
 /*---------------------------------------------------*/
 /*  Slider is added using swiper.js, here it starts  */
@@ -75,8 +86,9 @@ window.onload = () => {
     .querySelector(".container")
     .insertAdjacentHTML("beforebegin", navbar()); // populating navbar
   responsiveNess(); // Making the navbar responsive for mobile
-  trendingAppend(); // append trending cards
-  breakingNewsAppend(); // append breaking cards
+  trendingRequest(); // Making trending api request
+  axomRequest(); // Trending news network request
+  // breakingNewsAppend(); // append breaking cards
   sliderAppend(); // append the slider
   countryNewsAppend(); // append country news
   jibonXoiliAppend(); // append jibon xoili
@@ -87,91 +99,196 @@ document.querySelector(".container").onclick = (event) => {
 };
 
 /*------------------------------------------------------*/
+/*  To make a network reqeust to get trending cards     */
+/*------------------------------------------------------*/
+
+async function trendingRequest() {
+  let query = "trending in assam";
+  // const API = `https://api.npoint.io/d9de5e082d55215de18a/assamese_news`;
+  const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+
+  const res = await fetch(API);
+  const data = await res.json();
+  trendingAppend(data.data.catalog_list_items); // append trending cards
+}
+
+/*------------------------------------------------------*/
+/*  To make a network reqeust to get axomiya cards     */
+/*------------------------------------------------------*/
+
+async function axomRequest() {
+  // const API = `https://api.npoint.io/d9de5e082d55215de18a/assamese_news`;
+  const API = `https://prod.api.etvbharat.com/catalog_lists/app-new-headlines-home-assam.gzip?collective_ads_count=0&page=1&page_size=8&version=v2&response=r2&item_languages=asm&portal_state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+
+  // the api below is helpfull to get the details of the card that we have got
+
+  /* 
+  
+  const API = `https://prod.api.etvbharat.com/catalog_lists/web-news-details-assam.gzip?response=r2&item_languages=asm&page=0&page_size=10&content_id=assam20230801224341378378631&gallery_ad=false&scroll_no=0&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+  
+   */
+
+  const res = await fetch(API);
+  const data = await res.json();
+  // const [bigCard, midCard, ...rest] = data; // this will only work with my server list
+  // console.log(bigCard, midCard, rest); // this will only work with my server list
+  // breakingNewsAppend(bigCard, rest, midCard); // this will only work with my server list
+  breakingNewsAppend(data.data.catalog_list_items);
+}
+
+/*------------------------------------------------------*/
 /*  It will take the trending card and append it to dom */
 /*------------------------------------------------------*/
 
-function trendingAppend() {
+function trendingAppend(list) {
   const trendingSmall = document.querySelector("#trending_small");
-  trendingSmall.append(
-    tending_small_card({
-      news: "কৰিমগঞ্জত ৪ কোটি টকাৰ হেৰ'ইনসহ বাহন জব্দ : আটক সৰবৰাহকাৰী",
-      publishedDate: "3 Aug, 2023",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F73bd8cc0-b888-48b7-aed2-8151e81a3f31%2Fdrug.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=576",
-    })
-  );
-  trendingSmall.append(
-    tending_small_card({
-      news: "বলিউড বিখ্যাত খান পৰিয়ালঃ নিজ পৰিয়ালৰ সন্দৰ্ভত আৰবাজ খানৰ মত",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-07%2F1e6341eb-9f13-4e4f-8eab-541a4cfbb2b3%2FAP_FOR_WEB________________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=768",
 
-      publishedDate: "16 July 2023",
-    })
-  );
+  let first = false;
+  let second = false;
+  let third = false;
+  let c = 0;
+  let count = 0;
 
-  trendingSmall.insertAdjacentElement(
-    "afterend",
-    tending_big_card({
-      news: "বলিউড বিখ্যাত খান পৰিয়ালঃ নিজ পৰিয়ালৰ সন্দৰ্ভত আৰবাজ খানৰ মত",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-07%2F1e6341eb-9f13-4e4f-8eab-541a4cfbb2b3%2FAP_FOR_WEB________________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=768",
+  for (let i = 0; i < list.length; i++) {
+    if (c === 3) {
+      console.log(`Trending all done. count ${c}`);
+      break;
+    }
+    for (let j = 0; j < list[i].catalog_list_items.length; j++) {
+      count++;
+      if (list[i].message !== "No Items Present") {
+        try {
+          const {
+            title: news,
+            genres: category,
+            keywords,
+            publish_date_string,
+            short_description: desc,
+            thumbnails: {
+              high_16_9: { url, alt_tags, caption },
+            },
+            web_url,
+          } = list[i].catalog_list_items[j];
 
-      publishedDate: "3 Aug 2023",
-    })
-  );
+          let object = new createObject(
+            news,
+            keywords,
+            category,
+            publish_date_string,
+            desc,
+            url,
+            web_url,
+            alt_tags,
+            caption
+          );
+
+          if (first == false) {
+            trendingSmall.append(trending_small_card(object));
+            first = true;
+          } else if (second == false) {
+            trendingSmall.append(trending_small_card(object));
+            second = true;
+          } else if (first == true && second == true && third == false) {
+            trendingSmall.insertAdjacentElement(
+              "afterend",
+              trending_big_card(object)
+            );
+            third = true;
+          }
+          c++;
+          console.log(c);
+          if (c >= 3) {
+            break;
+          }
+        } catch (error) {
+          console.log("blank objects");
+        }
+      }
+    }
+  }
+  console.log(`Here we iterated for ${count} times`);
 }
 
 /*------------------------------------------------------*/
 /*  It will take the breaking card and append it to dom */
 /*------------------------------------------------------*/
 
-function breakingNewsAppend(
-  bigCardObj,
-  list = [
-    {
-      news: " ৰে'লৰ এ চি দবাত যান্ত্ৰিক বিজুতি : অসমৰ এটা ৰে'লপথত ঘটে সঘনাই এই ঘটনা",
-      image_url:
-        "https://images.news18.com/assam/uploads/2023/08/silchar-ghy-rail-2023-08-846b87e6099636a3759b56aa39e349df-3x2.jpg?impolicy=website&width=80&height=54",
-    },
-  ],
-  mediumCard
-) {
+function breakingNewsAppend(list) {
+  let bC = false;
+  let mC = false;
+  let count = 1;
+
+  const appendVertical = document.querySelector(
+    "#axom-breaking-vertical-append"
+  );
   const breakingBig = document.querySelector("#axom-breaking-big-card-append");
   const breakingMedium = document.querySelector(
     "#axom-breaking-medium-card-append"
-  );
-  breakingBig.append(
-    breakingBigCard({
-      image_url:
-        "https://images.news18.com/assam/uploads/2023/08/Encounter-2023-08-1bbe086cacc4b0d9dae5cec13679843e-3x2.jpg?impolicy=website&width=490&height=326",
-      news: "গুলী খায়ো DIG ৰ মোবাইল ক'ত বিক্ৰী কৰিলে স্বীকাৰ কৰা নাই অভিজিত ৰাভাই",
-      desc: "গুলী খায়ো DIGৰ মোবাইলৰ সন্ধান দিয়া নাই অভিজিৎ ৰাভাই। মহানগৰীত চুৰি মোবাইল কিনা খলনায়কো গুলীবিদ্ধ। একে নিশাই দুটা মোবাইল চোৰক গুলীবিদ্ধ কৰি অপৰাধীক কঠোৰ সকিয়নি মহানগৰ আৰক্ষীৰ",
-    })
   );
 
   /*-----------------------------------------------*/
   /* breaking_news vertical small cards            */
   /*-----------------------------------------------*/
-  const appendVertical = document.querySelector(
-    "#axom-breaking-vertical-append"
-  );
+
   appendVertical.innerHTML = "";
-  list.forEach((element) => {
-    appendVertical.append(breakingVerticalSmall(element));
 
-    const line = document.createElement("div");
-    line.classList.add("horizontal-devider");
-    appendVertical.append(line);
-  });
+  /*-----------------------------------------------*/
+  /* New approach using direct api call            */
+  /*-----------------------------------------------*/
 
-  breakingMedium.append(
-    breakingMediumCard({
-      image_url:
-        "https://images.news18.com/assam/uploads/2023/08/1691048128_1690872649_train4-3x2.jpg?impolicy=website&width=198&height=130",
-      news: " Indian Railway Rule : সাৱধান! ৰে’ল যাত্ৰাত নিষিদ্ধ এই ৫বিধ সামগ্ৰী",
-    })
-  );
+  for (let i = 0; i < list.length; i++) {
+    if (count >= 5) break;
+
+    for (let j = 0; j < list[i].catalog_list_items.length; j++) {
+      if (list[i].message !== "No Items Present") {
+        try {
+          const {
+            title: news,
+            genres: category,
+            keywords,
+            publish_date_string,
+            short_description: desc,
+            thumbnails: {
+              high_16_9: { url, alt_tags, caption },
+            },
+            web_url,
+          } = list[i].catalog_list_items[j];
+
+          let object = new createObject(
+            news,
+            keywords,
+            category,
+            publish_date_string,
+            desc,
+            url,
+            web_url,
+            alt_tags,
+            caption
+          );
+          if (bC == false) {
+            breakingBig.append(breakingBigCard(object));
+            bC = true;
+          } else if (mC == false) {
+            breakingMedium.append(breakingMediumCard(object));
+            mC = true;
+          } else if (mC == true && bC == true && count <= 5) {
+            appendVertical.append(breakingVerticalSmall(object));
+            const line = document.createElement("div");
+            line.classList.add("horizontal-devider");
+            appendVertical.append(line);
+            count++;
+          } else {
+            break;
+          }
+          console.log(count);
+        } catch (error) {
+          console.log("blank objects");
+        }
+      }
+    }
+  }
+
+  console.log(`I am iterated ${count} times`);
 }
 
 /*-----------------------------------------------*/
@@ -271,4 +388,31 @@ function jibonXoiliAppend(
   list.forEach((element) => {
     jibonXoili.append(getJibonXoiliCard(element));
   });
+}
+
+/*-----------------------------------------------*/
+/* Creating a required object from the response  */
+/*-----------------------------------------------*/
+function createObject(
+  news,
+  keywords,
+  category,
+  publish_date_string,
+  desc,
+  url,
+  web_url,
+  alt_tags,
+  caption
+) {
+  let localDate = new Date(publish_date_string);
+
+  this.news = news;
+  this.keywords = keywords;
+  this.category = category;
+  this.publishedDate = publish_date_string;
+  this.desc = desc;
+  this.image_url = url;
+  this.web_url = web_url;
+  this.alt_tags = alt_tags;
+  this.caption = caption;
 }

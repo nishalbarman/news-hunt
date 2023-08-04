@@ -1,3 +1,6 @@
+/*--------------------------------------------------------*/
+/*  All the imports are at top, imported form components  */
+/*--------------------------------------------------------*/
 import navbar from "../components/navbar.js";
 import responsiveNess from "../components/navbarResponsive.js";
 import closeMenu from "../components/closeMenu.js";
@@ -8,9 +11,15 @@ import breakingBigCard from "/components/breaking_news_big_card.js";
 import breakingMediumCard from "/components/breaking_news_medium_card.js";
 import breakingVerticalSmall from "/components/breaking_small_card_vertical.js";
 import getSliderCard from "/components/slider_card.js";
+import getJibonXoiliCard from "/components/jibom_xoili_card.js";
+/*--------------------------------------------------------*/
+/*  All the imports are at top, imported has been done    */
+/*--------------------------------------------------------*/
 
-// here adding the slider code
-// slider code stating
+/*---------------------------------------------------*/
+/*  Slider is added using swiper.js, here it starts  */
+/*---------------------------------------------------*/
+
 const swiper = new Swiper(".slide-container", {
   slidesPerView: 3,
   spaceBetween: 15,
@@ -56,16 +65,21 @@ const swiper = new Swiper(".slide-container", {
     },
   },
 });
-//slider code ended
+
+/*---------------------------------------------------*/
+/*  Slider ended here, all everything is done        */
+/*---------------------------------------------------*/
 
 window.onload = () => {
   document
     .querySelector(".container")
-    .insertAdjacentHTML("beforebegin", navbar());
-  responsiveNess();
+    .insertAdjacentHTML("beforebegin", navbar()); // populating navbar
+  responsiveNess(); // Making the navbar responsive for mobile
   trendingAppend(); // append trending cards
   breakingNewsAppend(); // append breaking cards
-  sliderAppend(); // appemd the slider
+  sliderAppend(); // append the slider
+  countryNewsAppend(); // append country news
+  jibonXoiliAppend(); // append jibon xoili
 };
 
 document.querySelector(".container").onclick = (event) => {
@@ -92,7 +106,7 @@ function trendingAppend() {
       image_url:
         "https://gumlet.assettype.com/asomiyapratidin%2F2023-07%2F1e6341eb-9f13-4e4f-8eab-541a4cfbb2b3%2FAP_FOR_WEB________________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=768",
 
-      publishedData: "16 July 2023",
+      publishedDate: "16 July 2023",
     })
   );
 
@@ -103,7 +117,7 @@ function trendingAppend() {
       image_url:
         "https://gumlet.assettype.com/asomiyapratidin%2F2023-07%2F1e6341eb-9f13-4e4f-8eab-541a4cfbb2b3%2FAP_FOR_WEB________________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=768",
 
-      publishedData: "3 Aug 2023",
+      publishedDate: "3 Aug 2023",
     })
   );
 }
@@ -178,5 +192,83 @@ function sliderAppend(
   appendSlideCard.innerHTML = "";
   list.forEach((element) => {
     appendSlideCard.append(getSliderCard(element));
+  });
+}
+
+/*-----------------------------------------------*/
+/* country grid appending starts from here       */
+/*-----------------------------------------------*/
+
+function countryNewsAppend(
+  list = [
+    {
+      news: "বাৰিষাৰ দিনত পৰাপক্ষত আটা মাৰি ফ্ৰীজত নথ’ব",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F45da3f57-628f-49cd-9e18-ade578bf6745%2FAP_FOR_WEB_________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
+      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
+    },
+    {
+      news: "বাস্তুৰ মতে এল’ভেৰা কিদৰে ৰোপন কৰিব লাগে জানেনে ?",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F079bc7fe-343c-4226-8f9c-2ab41d2381d2%2FAP_FOR_WEB_________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
+      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
+    },
+    {
+      news: "বৰ্তমানলৈ দান কৰিছে ১,৫৯৯.৬৮ লিটাৰ গাখীৰ, হাজাৰ হাজাৰ শিশুৰ ভৰাইছে পেট",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2Fd52b3a49-20da-401d-8c54-4316f5f52157%2Fworld_record.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
+      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
+    },
+    {
+      news: "জীৱনটোক নতুনকৈ সজাবলৈ আকৌ প্ৰেমিকা বিচাৰিছে ৰাহুল মহাজনে",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F74156e89-1707-40e1-81c3-e194c3bb03b9%2FAP_FOR_WEB__rahul.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
+      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
+    },
+  ]
+) {
+  const appendCountryNews = document.querySelector("#country_news");
+  appendCountryNews.innerHTML = "";
+  list.forEach((element) => {
+    appendCountryNews.append(getSliderCard(element));
+  });
+}
+
+/*-----------------------------------------------*/
+/* jibon xoli,  appending starts from here       */
+/*-----------------------------------------------*/
+
+function jibonXoiliAppend(
+  list = [
+    {
+      news: "নুমলীগড় শোধনাগাৰৰ মুখ্য প্ৰৱেশদ্বাৰত শ্ৰমিক ইউনিয়নৰ তীব্ৰ প্ৰতিবাদ",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F62357551-8029-4d85-ac1b-54943a757d61%2Fnumaligarah.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0",
+      publishedDate: "65 minutes ago",
+    },
+    {
+      news: "বাস্তুৰ মতে এল’ভেৰা কিদৰে ৰোপন কৰিব লাগে জানেনে ?",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F079bc7fe-343c-4226-8f9c-2ab41d2381d2%2FAP_FOR_WEB_________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
+      publishedDate: "65 minutes ago",
+    },
+    {
+      news: "আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0",
+      publishedDate: "70 minutes ago",
+    },
+    {
+      news: "আৰক্ষী বিষয়া মুছলেহউদ্দিন আহমেদৰ ধৰ্মীয় উদাৰতাঃ নামঘৰৰ পিছত নিৰ্মাণ কৰিলে শিৱমন্দিৰ...",
+      image_url:
+        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F14e04337-12a0-4e44-b1b2-c50f1dac8a72%2FAP_FOR_WEB_new.jpg?auto=format%2Ccompress&fit=max&format=webp&w=160&dpr=1.0",
+      desc: "70 minutes ago",
+    },
+  ]
+) {
+  const jibonXoili = document.querySelector("#jibon-xoili-append");
+  jibonXoili.innerHTML = "";
+  list.forEach((element) => {
+    jibonXoili.append(getJibonXoiliCard(element));
   });
 }

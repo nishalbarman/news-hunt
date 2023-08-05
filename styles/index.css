@@ -394,7 +394,7 @@ img:hover {
   flex-direction: column;
   height: fit-content;
   gap: 8px;
-  max-width: 50%;
+  max-width: 32%;
 }
 
 .breaking-card {
@@ -425,6 +425,11 @@ img:hover {
   filter: drop-shadow(0px 0px 10px black);
   font-weight: bold;
   font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .breaking-card > div p:nth-of-type(2) {
@@ -458,6 +463,11 @@ img:hover {
   filter: drop-shadow(0px 0px 10px black);
   font-weight: bold;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .middle-break-card > div p:nth-of-type(2) {
@@ -473,6 +483,20 @@ img:hover {
 
 div.news-grid-jiban {
   grid-template-columns: repeat(4, auto);
+}
+
+.shake-animation {
+  animation-name: shake;
+  animation-duration: 2s;
+}
+
+@keyframes shake {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media only screen and (max-width: 1543px) {
@@ -499,6 +523,7 @@ div.news-grid-jiban {
   .breaking-cards-half {
     flex-direction: row;
     width: 100% !important;
+    max-width: 50% !important;
   }
   .breaking-card {
     width: 100% !important;

@@ -87,11 +87,11 @@ window.onload = () => {
     .insertAdjacentHTML("beforebegin", navbar()); // populating navbar
   responsiveNess(); // Making the navbar responsive for mobile
   trendingRequest(); // Making trending api request
-  axomRequest(); // Trending news network request
-  // breakingNewsAppend(); // append breaking cards
-  sliderAppend(); // append the slider
-  countryNewsAppend(); // append country news
+  axomRequest(); // request and append breaking cards
+  sliderRequest(); // request and append the slider
+  countryRequest(); // request and append country news
   jibonXoiliAppend(); // append jibon xoili
+  workOnBreakingButtons(); // working on tge buttons for breaking news
 };
 
 document.querySelector(".container").onclick = (event) => {
@@ -113,13 +113,26 @@ async function trendingRequest() {
 }
 
 /*------------------------------------------------------*/
+/*  To make a network reqeust to get coutntry cards     */
+/*------------------------------------------------------*/
+
+async function countryRequest() {
+  let query = "india";
+  const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+
+  const res = await fetch(API);
+  const data = await res.json();
+  countryNewsAppend(data.data.catalog_list_items);
+}
+
+/*------------------------------------------------------*/
 /*  To make a network reqeust to get axomiya cards     */
 /*------------------------------------------------------*/
 
-async function axomRequest() {
-  // const API = `https://api.npoint.io/d9de5e082d55215de18a/assamese_news`;
-  const API = `https://prod.api.etvbharat.com/catalog_lists/app-new-headlines-home-assam.gzip?collective_ads_count=0&page=1&page_size=8&version=v2&response=r2&item_languages=asm&portal_state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
-
+async function axomRequest(
+  API = `https://prod.api.etvbharat.com/catalog_lists/app-new-headlines-home-assam.gzip?collective_ads_count=0&page=1&page_size=8&version=v2&response=r2&item_languages=asm&portal_state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`
+) {
+  // const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
   // the api below is helpfull to get the details of the card that we have got
 
   /* 
@@ -134,6 +147,18 @@ async function axomRequest() {
   // console.log(bigCard, midCard, rest); // this will only work with my server list
   // breakingNewsAppend(bigCard, rest, midCard); // this will only work with my server list
   breakingNewsAppend(data.data.catalog_list_items);
+}
+
+/*------------------------------------------------------*/
+/*  To make a network reqeust to get sliders  cards     */
+/*------------------------------------------------------*/
+
+async function sliderRequest() {
+  let query = "world";
+  const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+  const res = await fetch(API);
+  const data = await res.json();
+  sliderAppend(data.data.catalog_list_items);
 }
 
 /*------------------------------------------------------*/
@@ -226,6 +251,9 @@ function breakingNewsAppend(list) {
     "#axom-breaking-medium-card-append"
   );
 
+  breakingBig.innerHTML = "";
+  breakingMedium.innerHTML = "";
+
   /*-----------------------------------------------*/
   /* breaking_news vertical small cards            */
   /*-----------------------------------------------*/
@@ -295,60 +323,103 @@ function breakingNewsAppend(list) {
 /* slider append, here onwards slider           */
 /*----------------------------------------------*/
 
-function sliderAppend(
-  list = [
-    {
-      news: "এজন ব্যক্তিৰ অদ্ভুদ ইচ্ছা! কুকুৰ হ’বলৈ খৰচ . . .",
-      image_url:
-        "https://images.news18.com/assam/uploads/2023/08/man-became-dog-2023-08-e049ea2098de79a3bf29e59013aa2386-3x2.jpg?impolicy=website&width=285&height=180",
-      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
-    },
-  ]
-) {
+function sliderAppend(list) {
   const appendSlideCard = document.querySelector("#slider-apppend");
   appendSlideCard.innerHTML = "";
-  list.forEach((element) => {
-    appendSlideCard.append(getSliderCard(element));
-  });
+  let count = 1;
+  for (let i = 0; i < list.length; i++) {
+    if (count >= 20) break;
+
+    for (let j = 0; j < list[i].catalog_list_items.length; j++) {
+      if (list[i].message !== "No Items Present") {
+        try {
+          const {
+            title: news,
+            genres: category,
+            keywords,
+            publish_date_string,
+            short_description: desc,
+            thumbnails: {
+              high_16_9: { url, alt_tags, caption },
+            },
+            web_url,
+          } = list[i].catalog_list_items[j];
+
+          let object = new createObject(
+            news,
+            keywords,
+            category,
+            publish_date_string,
+            desc,
+            url,
+            web_url,
+            alt_tags,
+            caption
+          );
+          appendSlideCard.append(getSliderCard(object));
+          count++;
+          if (count >= 20) {
+            break;
+          }
+        } catch (error) {
+          console.log("blank objects");
+        }
+      }
+    }
+  }
 }
 
 /*-----------------------------------------------*/
 /* country grid appending starts from here       */
 /*-----------------------------------------------*/
 
-function countryNewsAppend(
-  list = [
-    {
-      news: "বাৰিষাৰ দিনত পৰাপক্ষত আটা মাৰি ফ্ৰীজত নথ’ব",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F45da3f57-628f-49cd-9e18-ade578bf6745%2FAP_FOR_WEB_________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
-      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
-    },
-    {
-      news: "বাস্তুৰ মতে এল’ভেৰা কিদৰে ৰোপন কৰিব লাগে জানেনে ?",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F079bc7fe-343c-4226-8f9c-2ab41d2381d2%2FAP_FOR_WEB_________.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
-      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
-    },
-    {
-      news: "বৰ্তমানলৈ দান কৰিছে ১,৫৯৯.৬৮ লিটাৰ গাখীৰ, হাজাৰ হাজাৰ শিশুৰ ভৰাইছে পেট",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2Fd52b3a49-20da-401d-8c54-4316f5f52157%2Fworld_record.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
-      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
-    },
-    {
-      news: "জীৱনটোক নতুনকৈ সজাবলৈ আকৌ প্ৰেমিকা বিচাৰিছে ৰাহুল মহাজনে",
-      image_url:
-        "https://gumlet.assettype.com/asomiyapratidin%2F2023-08%2F74156e89-1707-40e1-81c3-e194c3bb03b9%2FAP_FOR_WEB__rahul.jpg?auto=format%2Ccompress&fit=max&format=webp&dpr=1.0&q=70&w=300",
-      desc: "Man Became Dog: মানুহে কুকুৰ পোহা সচৰাচৰ দেখিবলৈ পোৱা যায়। কুকুৰ আগ্ৰহী আৰু বিশ্বাসী ব. . .",
-    },
-  ]
-) {
+function countryNewsAppend(list) {
   const appendCountryNews = document.querySelector("#country_news");
+
+  let count = 0;
+
   appendCountryNews.innerHTML = "";
-  list.forEach((element) => {
-    appendCountryNews.append(getSliderCard(element));
-  });
+
+  for (let i = 0; i < list.length; i++) {
+    if (count >= 20) break;
+
+    for (let j = 0; j < list[i].catalog_list_items.length; j++) {
+      if (list[i].message !== "No Items Present") {
+        try {
+          const {
+            title: news,
+            genres: category,
+            keywords,
+            publish_date_string,
+            short_description: desc,
+            thumbnails: {
+              high_16_9: { url, alt_tags, caption },
+            },
+            web_url,
+          } = list[i].catalog_list_items[j];
+
+          let object = new createObject(
+            news,
+            keywords,
+            category,
+            publish_date_string,
+            desc,
+            url,
+            web_url,
+            alt_tags,
+            caption
+          );
+          appendCountryNews.append(getSliderCard(object));
+          count++;
+          if (count >= 20) {
+            break;
+          }
+        } catch (error) {
+          console.log("blank objects");
+        }
+      }
+    }
+  }
 }
 
 /*-----------------------------------------------*/
@@ -415,4 +486,102 @@ function createObject(
   this.web_url = web_url;
   this.alt_tags = alt_tags;
   this.caption = caption;
+}
+
+/*-----------------------------------------------*/
+/* Funciton for breaking news buttons  */
+/*-----------------------------------------------*/
+function workOnBreakingButtons() {
+  const all = document.querySelector("#all");
+  const nalbari = document.querySelector("#nalbari");
+  const sonitpur = document.querySelector("#sonitpur");
+  const gauhati = document.querySelector("#gauhati");
+  const jorhat = document.querySelector("#jorhat");
+  const dibrugarh = document.querySelector("#dibrugarh");
+
+  all.addEventListener("click", (event) => {
+    event.preventDefault();
+    axomRequest();
+    event.target.classList.add("active_news_button");
+    nalbari.classList.remove("active_news_button");
+    sonitpur.classList.remove("active_news_button");
+    gauhati.classList.remove("active_news_button");
+    jorhat.classList.remove("active_news_button");
+    dibrugarh.classList.remove("active_news_button");
+    addAnimation(event);
+  });
+
+  nalbari.addEventListener("click", (event) => {
+    event.preventDefault();
+    axomRequest(
+      `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=nalbari&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`
+    );
+    event.target.classList.add("active_news_button");
+    all.classList.remove("active_news_button");
+    sonitpur.classList.remove("active_news_button");
+    gauhati.classList.remove("active_news_button");
+    jorhat.classList.remove("active_news_button");
+    dibrugarh.classList.remove("active_news_button");
+    addAnimation(event);
+  });
+
+  sonitpur.addEventListener("click", (event) => {
+    event.preventDefault();
+    axomRequest(
+      `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=sonitpur&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`
+    );
+    event.target.classList.add("active_news_button");
+    nalbari.classList.remove("active_news_button");
+    all.classList.remove("active_news_button");
+    gauhati.classList.remove("active_news_button");
+    jorhat.classList.remove("active_news_button");
+    dibrugarh.classList.remove("active_news_button");
+    addAnimation(event);
+  });
+
+  gauhati.addEventListener("click", (event) => {
+    event.preventDefault();
+    axomRequest(
+      `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=gauhati&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`
+    );
+    event.target.classList.add("active_news_button");
+    nalbari.classList.remove("active_news_button");
+    sonitpur.classList.remove("active_news_button");
+    all.classList.remove("active_news_button");
+    jorhat.classList.remove("active_news_button");
+    dibrugarh.classList.remove("active_news_button");
+    addAnimation(event);
+  });
+
+  jorhat.addEventListener("click", (event) => {
+    event.preventDefault();
+    axomRequest(
+      `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=jorhat&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`
+    );
+    event.target.classList.add("active_news_button");
+    nalbari.classList.remove("active_news_button");
+    sonitpur.classList.remove("active_news_button");
+    gauhati.classList.remove("active_news_button");
+    all.classList.remove("active_news_button");
+    dibrugarh.classList.remove("active_news_button");
+    addAnimation(event);
+  });
+
+  dibrugarh.addEventListener("click", (event) => {
+    event.preventDefault();
+    axomRequest(
+      `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=dibrugarh&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`
+    );
+    event.target.classList.add("active_news_button");
+    nalbari.classList.remove("active_news_button");
+    sonitpur.classList.remove("active_news_button");
+    gauhati.classList.remove("active_news_button");
+    jorhat.classList.remove("active_news_button");
+    all.classList.remove("active_news_button");
+    addAnimation(event);
+  });
+}
+
+function addAnimation(event) {
+  event.target.classList.add("shake-animation");
 }

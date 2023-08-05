@@ -11,7 +11,7 @@ function breakingNewsBigCard(object) {
 
   image.src = image_url;
   title.textContent = news;
-  description.textContent = desc;
+  description.innerHTML = desc;
 
   card.classList.add("big-card");
   big_card_image.classList.add("big-card-image");

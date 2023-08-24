@@ -1,112 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SmallTrendingCard from "./smallTrendingCard/SmallTrendingCard";
 import BigTrendingCard from "./bigTrendingCard/BigTrendingCard";
+import { NewsContext } from "../../Contexts/NewsState";
 
 export default function Trending() {
-  //   const [trendingList, setTrendingList] = useState([]);
+  const newsContext = useContext(NewsContext);
+  const { trendingNewsList, setTrendingNewsList } = newsContext.trendingNews;
+
   const [trendingSmallOne, setTrendingSmallOne] = useState({});
   const [trendingSmallTwo, setTrendingSmallTwo] = useState({});
   const [trendingBig, setTrendingBig] = useState({});
 
   useEffect(() => {
-    trendingAppend();
+    const [, small1, small2, big] = trendingNewsList;
+
+    setTrendingSmallOne(small1);
+    setTrendingSmallTwo(small2);
+    setTrendingBig(big);
+  }, [trendingNewsList]);
+
+  useEffect(() => {
+    trendingNewsRequest();
   }, []);
 
-  const trendingAppend = async () => {
-    const AUTHTOKEN = "xBUKcKnXfngfrqGoF93y";
-    const ACCESS_TOKEN = "TjeNsXehJqhh2DGJzBY9";
-
+  const trendingNewsRequest = async () => {
     let query = "trending in assam";
-    const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${AUTHTOKEN}&access_token=${ACCESS_TOKEN}`;
+    const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${newsContext.AUTHTOKEN}&access_token=${newsContext.ACCESS_TOKEN}`;
 
     const res = await fetch(API);
     let list = await res.json();
     list = list.data.catalog_list_items;
 
-    console.log(list);
-
-    let first = false;
-    let second = false;
-    let third = false;
-    let c = 0;
-    let count = 0;
-
-    for (let i = 0; i < list.length; i++) {
-      console.log(list[i]);
-      if (c === 3) {
-        console.log(`Trending all done. count ${c}`);
-        break;
-      }
-      for (let j = 0; j < list[i].catalog_list_items.length; j++) {
-        count++;
-        if (list[i].message !== "No Items Present") {
+    list.forEach((object) => {
+      object.catalog_list_items.forEach((newsDetails) => {
+        if (object.message !== "No Items Present") {
           try {
             const {
               title: news,
               genres: category,
               keywords,
-              publish_date_string,
+              publish_date_string: publishedDate,
               short_description: desc,
               thumbnails: {
-                high_16_9: { url, alt_tags, caption },
+                high_16_9: { url: image_url, alt_tags, caption },
               },
               web_url,
-            } = list[i].catalog_list_items[j];
+            } = newsDetails;
 
-            function createObject(
+            let newsDetailsApnaStyle = {
               news,
               keywords,
               category,
-              publish_date_string,
+              publishedDate,
               desc,
-              url,
+              image_url,
               web_url,
               alt_tags,
-              caption
-            ) {
-              this.news = news;
-              this.keywords = keywords;
-              this.category = category;
-              this.publishedDate = publish_date_string;
-              this.desc = desc;
-              this.image_url = url;
-              this.web_url = web_url;
-              this.alt_tags = alt_tags;
-              this.caption = caption;
-            }
+              caption,
+            };
 
-            let object = new createObject(
-              news,
-              keywords,
-              category,
-              publish_date_string,
-              desc,
-              url,
-              web_url,
-              alt_tags,
-              caption
-            );
-
-            if (first == false) {
-              setTrendingSmallOne(object);
-              first = true;
-            } else if (second == false) {
-              setTrendingSmallTwo(object);
-              second = true;
-            } else if (first == true && second == true && third == false) {
-              setTrendingBig(object);
-              third = true;
-            }
-            c++;
-            if (c >= 3) {
-              break;
-            }
+            setTrendingNewsList((prevList) => {
+              let newList = [...prevList, newsDetailsApnaStyle];
+              return newList;
+            });
           } catch (error) {
             console.log("blank objects");
           }
         }
-      }
-    }
+      });
+    });
   };
 
   return (

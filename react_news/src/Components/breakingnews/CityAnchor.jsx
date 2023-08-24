@@ -1,10 +1,10 @@
 import React from "react";
 
-function CityAnchor({ name, className }) {
+function CityAnchor({ name, className, click }) {
   return (
-    <a id="all" href="#" className={className || ""}>
+    <span id="all" onClick={click} href="#" className={className || ""}>
       {name}
-    </a>
+    </span>
   );
 }
 

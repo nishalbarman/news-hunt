@@ -4,23 +4,41 @@ import Navbar from "./Components/navbar/Navbar";
 import Container from "./Components/container/Container";
 import HomePage from "./Components/homepage/HomePage";
 import "./App.css";
+import PageNotFound from "./Components/pagenotfound/PageNotFound";
+import NewsState from "./Contexts/NewsState";
 
 function App() {
   return (
-    <>
-      <Navbar />
+    <NewsState>
       <Router>
+        <Navbar />
         <Routes>
           <Route
-            exact path="/"
+            path="/*"
+            element={
+              <Container>
+                <PageNotFound />
+              </Container>
+            }></Route>
+          <Route
+            exact
+            path="/"
             element={
               <Container>
                 <HomePage />
               </Container>
             }></Route>
+
+          <Route
+            path="/nishal"
+            element={
+              <Container>
+                <h1>Hi, my name is Nishal. I am a MERN stack developer.</h1>
+              </Container>
+            }></Route>
         </Routes>
       </Router>
-    </>
+    </NewsState>
   );
 }
 

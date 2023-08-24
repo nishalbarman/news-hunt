@@ -243,18 +243,6 @@ body {
   line-height: 30px;
 }
 
-/* img {
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-  border-radius: 5px;
-}
-
-img:hover {
-  transform: scale(1.1);
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-} */
-
 .watch-more-button {
   width: 100%;
   height: 90px;

@@ -1,37 +1,36 @@
-import React, { useContext, useEffect, useState } from "react";
-import SmallTrendingCard from "./smallTrendingCard/SmallTrendingCard";
-import BigTrendingCard from "./bigTrendingCard/BigTrendingCard";
-import { NewsContext } from "../../Contexts/NewsState";
+import React, { useState, useContext, useEffect } from "react";
 import Loader from "../loader/Loader";
 import loading_image from "../../Images/loading-red.gif";
+import { NewsContext } from "../../Contexts/NewsState";
+import WorldCard from "../world/worldcard/WorldCard";
 
-export default function Trending() {
+function Country() {
   const newsContext = useContext(NewsContext);
-  const { trendingNewsList, setTrendingNewsList } = newsContext.trendingNews;
+  const { countryNewsList, setCountryNewsList } = newsContext.countryNews;
   const [loading, setLoading] = useState(true);
-
-  const [trendingSmallOne, setTrendingSmallOne] = useState({});
-  const [trendingSmallTwo, setTrendingSmallTwo] = useState({});
-  const [trendingBig, setTrendingBig] = useState({});
+  const [localList, setLocalList] = useState([]);
 
   useEffect(() => {
-    const [, small1, small2, big] = trendingNewsList;
-
-    setTrendingSmallOne(small1);
-    setTrendingSmallTwo(small2);
-    setTrendingBig(big);
+    console.log(countryNewsList);
+    if (countryNewsList.length !== 0) {
+      let newArray = [];
+      for (let i = 0; i < 20; i++) {
+        newArray.push(countryNewsList[i]);
+      }
+      setLocalList(newArray);
+    }
     setLoading(false);
-  }, [trendingNewsList]);
+  }, [countryNewsList]);
 
   useEffect(() => {
-    trendingNewsRequest();
+    countryNewsRequest();
   }, []);
 
-  const trendingNewsRequest = async () => {
-    let query = "trending in assam";
-    const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${newsContext.AUTHTOKEN}&access_token=${newsContext.ACCESS_TOKEN}`;
-
+  const countryNewsRequest = async () => {
     try {
+      let query = "india related news";
+      const API = `https://prod.api.etvbharat.com/catalog_lists/search-page-list?page=0&page_size=45&version=v2&response=r2&item_languages=asm&portal_state=assam&q=${query}&state=assam&auth_token=${newsContext.AUTHTOKEN}&access_token=${newsContext.ACCESS_TOKEN}`;
+
       const res = await fetch(API);
       let list = await res.json();
       list = list.data.catalog_list_items;
@@ -64,7 +63,7 @@ export default function Trending() {
                 caption,
               };
 
-              setTrendingNewsList((prevList) => {
+              setCountryNewsList((prevList) => {
                 let newList = [...prevList, newsDetailsApnaStyle];
                 return newList;
               });
@@ -81,14 +80,16 @@ export default function Trending() {
       });
     }
   };
-
   return (
-    <div id="trending-news">
-      <div className="news-div-titles">
-        <h3>TRENDING</h3>
+    <div id="country-news-grid" className="news-grid-content">
+      <div className="news-grid-title-cotainer">
+        <div className="horizontal-devider" />
+        <h2>দেশ</h2>
+        <div className="horizontal-devider" />
       </div>
-      {loading || trendingNewsList.length === 0 ? (
+      {loading || countryNewsList.length === 0 ? (
         <div
+          className="news-card-content"
           style={{
             height: "380px",
             display: "flex",
@@ -98,17 +99,15 @@ export default function Trending() {
           <Loader style={{ width: "250px" }} url={loading_image} />
         </div>
       ) : (
-        <div className="news-breaking-cotainer">
-          <div id="trending_small" className="breaking-cards-half">
-            {/* first half two cards  */}
-            <SmallTrendingCard {...trendingSmallOne} />
-            <SmallTrendingCard {...trendingSmallTwo} />
-          </div>
-
-          {/* The big card is going to be appended here */}
-          <BigTrendingCard {...trendingBig} />
+        <div id="country_news" className="news-grid news-grid-jiban">
+          {/* card will append here */}
+          {localList.map((newsDetails) => {
+            return <WorldCard {...newsDetails} />;
+          })}
         </div>
       )}
     </div>
   );
 }
+
+export default Country;

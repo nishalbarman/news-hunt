@@ -6,6 +6,7 @@ import BreakingSmallCard from "./breakingSmallCard/BreakingSmallCard";
 import BreakingMediumCard from "./breakingMediumCard/BreakingMediumCard";
 import Loader from "../loader/Loader";
 import loading_image from "../../Images/loading-red.gif";
+import { Link, useNavigate } from "react-router-dom";
 
 function BreakingNews() {
   const newsContext = useContext(NewsContext); // NewsContext to get all states from APP component to any child
@@ -27,7 +28,7 @@ function BreakingNews() {
     for (let i = 0; i < 5; i++) {
       setSmallCardList((pr) => {
         console.log("small cards => ", rest[i]);
-        let newar = [rest[i], ...pr];
+        let newar = [...pr, rest[i]];
         return newar;
       });
     }
@@ -41,49 +42,61 @@ function BreakingNews() {
   const breakingNewsRequest = async (
     API = `https://prod.api.etvbharat.com/catalog_lists/app-new-headlines-home-assam.gzip?collective_ads_count=0&page=1&page_size=8&version=v2&response=r2&item_languages=asm&portal_state=assam&auth_token=${newsContext.AUTHTOKEN}&access_token=${newsContext.ACCESS_TOKEN}`
   ) => {
-    const res = await fetch(API);
-    const data = await res.json();
-    const list = data.data.catalog_list_items;
-    console.log(list);
+    console.log(API);
+    try {
+      setBreakingNewsList([]);
+      const res = await fetch(API);
+      const data = await res.json();
+      const list = data.data.catalog_list_items;
+      console.log(list);
 
-    list.forEach((object) => {
-      object.catalog_list_items.forEach((newsDetails) => {
-        if (newsDetails.message !== "No Items Present") {
-          try {
-            const {
-              title: news,
-              genres: category,
-              keywords,
-              publish_date_string: publishedDate,
-              short_description: desc,
-              thumbnails: {
-                high_16_9: { url: image_url, alt_tags, caption },
-              },
-              web_url,
-            } = newsDetails;
+      list.forEach((object) => {
+        object.catalog_list_items.forEach((newsDetails) => {
+          if (newsDetails.message !== "No Items Present") {
+            try {
+              const {
+                title: news,
+                genres: category,
+                keywords,
+                publish_date_string: publishedDate,
+                short_description: desc,
+                thumbnails: {
+                  high_16_9: { url: image_url, alt_tags, caption },
+                },
+                web_url,
+              } = newsDetails;
 
-            let newsDetailsApnaStyle = {
-              news,
-              keywords,
-              category,
-              publishedDate,
-              desc,
-              image_url,
-              web_url,
-              alt_tags,
-              caption,
-            };
+              let newsDetailsApnaStyle = {
+                news,
+                keywords,
+                category,
+                publishedDate,
+                desc,
+                image_url,
+                web_url,
+                alt_tags,
+                caption,
+              };
 
-            setBreakingNewsList((prevList) => {
-              let newList = [...prevList, newsDetailsApnaStyle];
-              return newList;
-            });
-          } catch (error) {
-            console.warn("Error occured in retrieving list => ", error.message);
+              setBreakingNewsList((prevList) => {
+                let newList = [...prevList, newsDetailsApnaStyle];
+                return newList;
+              });
+            } catch (error) {
+              console.warn(
+                "Error occured in retrieving list => ",
+                error.message
+              );
+            }
           }
-        }
+        });
       });
-    });
+    } catch (er) {
+      newsContext.alert.showAlert({
+        message: "Some technical error occured...",
+        variant: "error",
+      });
+    }
   };
 
   const handleCityClick = (active) => {
@@ -120,6 +133,8 @@ function BreakingNews() {
         breakingNewsRequest();
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <div
@@ -173,7 +188,7 @@ function BreakingNews() {
           />
         </div>
       </div>
-      {loading ? (
+      {loading || breakingNewsList.length === 0 ? (
         <div
           className="news-card-content"
           style={{
@@ -182,37 +197,35 @@ function BreakingNews() {
             justifyContent: "center",
             alignItems: "center",
           }}>
-          {/* <h3 style={{ textAlign: "center", width: "100%" }}>Loading ...</h3> */}
           <Loader style={{ width: "250px" }} url={loading_image} />
         </div>
       ) : (
         <div className="news-card-content">
           <div id="axom-breaking-big-card-append">
-            {/*---------------------------------------*/}
-            {/* Big card is going to be appended here */}
-            {/*---------------------------------------*/}
+            {/* breaking news left card  */}
             <BreakingBigCard {...bigCard} />
           </div>
           <div className="vertical-devider" />
           <div id="axom-breaking-vertical-append" className="axom-news-cards">
-            {/*---------------------------------------*/}
-            {/* 5 cards are going to be appended here */}
-            {/*---------------------------------------*/}
-            {smallCardList?.map((singleNews) => {
-              return <BreakingSmallCard {...singleNews} />;
+            {/* breaking news middle 5 cards  */}
+            {smallCardList?.map((singleNews, i) => {
+              return <BreakingSmallCard key={i} {...singleNews} />;
             })}
           </div>
           <div className="vertical-devider" />
           <div>
             <div id="axom-breaking-medium-card-append">
-              {/*------------------------------------------*/}
-              {/* Medium card is going to be appended here */}
-              {/*------------------------------------------*/}
+              {/* breaking news right side card */}
               <BreakingMediumCard {...mediumCard} />
             </div>
             <br />
-            <div className="watch-more-button" id="watch-more-assam">
-              <a href="#">অধিক পঢ়ক </a>
+            <div
+              className="watch-more-button"
+              id="watch-more-assam"
+              onClick={() => {
+                navigate("/watch-more");
+              }}>
+              <Link>অধিক পঢ়ক </Link>
               <i
                 className="fa-solid fa-arrow-right"
                 style={{ color: "#ff0000" }}

@@ -6,12 +6,15 @@ import HomePage from "./Components/homepage/HomePage";
 import "./App.css";
 import PageNotFound from "./Components/pagenotfound/PageNotFound";
 import NewsState from "./Contexts/NewsState";
+import WatchMore from "./Components/watchmore/WatchMore";
+import Alert from "./Components/alert/Alert";
 
 function App() {
   return (
     <NewsState>
       <Router>
         <Navbar />
+        <Alert />
         <Routes>
           <Route
             path="/*"
@@ -28,7 +31,13 @@ function App() {
                 <HomePage />
               </Container>
             }></Route>
-
+          <Route
+            path="/watch-more"
+            element={
+              <Container>
+                <WatchMore />
+              </Container>
+            }></Route>
           <Route
             path="/nishal"
             element={

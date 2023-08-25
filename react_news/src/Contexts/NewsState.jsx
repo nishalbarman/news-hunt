@@ -5,8 +5,21 @@ const newsContext = createContext();
 const NewsState = ({ children }) => {
   const [breakingNewsList, setBreakingNewsList] = useState([]);
   const [trendingNewsList, setTrendingNewsList] = useState([]);
-  const [countryNewsList, setCountryNewsList] = useState([]);
   const [worldNewsList, setWorldNewsList] = useState([]);
+  const [countryNewsList, setCountryNewsList] = useState([]);
+
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState({
+    message: "",
+    variant: "",
+  });
+  const showAlert = ({ message, variant }) => {
+    setAlertMessage({ message, variant });
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 3000);
+  };
 
   return (
     <newsContext.Provider
@@ -26,6 +39,11 @@ const NewsState = ({ children }) => {
         worldNews: {
           worldNewsList,
           setWorldNewsList,
+        },
+        alert: {
+          alert,
+          showAlert,
+          alertMessage,
         },
         AUTHTOKEN: "xBUKcKnXfngfrqGoF93y",
         ACCESS_TOKEN: "TjeNsXehJqhh2DGJzBY9",

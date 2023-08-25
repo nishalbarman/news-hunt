@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const [mobileInputValue, setMobileInputValue] = useState("");
   const [sideMenuShow, setSideMenuShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleMobileSearchClick = () => {};
 
@@ -48,6 +50,10 @@ export default function Navbar() {
               src="https://images.news18.com/assam/uploads/2020/11/desktop-assam-navlogo.png"
               alt="logo"
               className={sideMenuShow ? styles.fadeIn : styles.fadeOut}
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/");
+              }}
             />
             <i
               id={styles.close}
@@ -66,38 +72,38 @@ export default function Navbar() {
               <button onClick={handleMobileSearchClick}>Search</button>
             </div>
             <div className={styles.horizontal_line}></div>
-            <a href="#" className={styles.active}>
+            <Link to="/axom" className={styles.active}>
               অসম
-            </a>
+            </Link>
             <div className={styles.horizontal_line}></div>
-            <a href="#">দেশ</a>
+            <Link to="/country">দেশ</Link>
             <div className={styles.horizontal_line}></div>
-            <a href="#">অপৰাধনামা</a>
+            <Link to="/crime">অপৰাধনামা</Link>
             <div className={styles.horizontal_line}></div>
-            <a href="#">মনোৰঞ্জন</a>
+            <Link to="/entertainment">মনোৰঞ্জন</Link>
             <div className={styles.horizontal_line}></div>
-            <a href="#">ব্যৱসায়</a>
+            <Link to="/bussiness">ব্যৱসায়</Link>
             <div className={styles.horizontal_line}></div>
-            <a href="#">ক্ৰীড়া</a>
+            <Link to="/sports">ক্ৰীড়া</Link>
             <div className={styles.horizontal_line}></div>
-            <a href="#">জীৱনশৈলী</a>
-            <div className={styles.horizontal_line}></div>
-            <a href="#">প্ৰযুক্তি</a>
+            {/* <Link to="#">জীৱনশৈলী</Link> */}
+            {/* <div className={styles.horizontal_line}></div> */}
+            <Link to="/technology">প্ৰযুক্তি</Link>
             <div className={styles.horizontal_line}></div>
           </div>
           <div className={`${styles.follow_icons} ${styles.follow_menu}`}>
-            <a href="https://facebook.com/" target="_blank">
+            <Link href="https://facebook.com/" target="_blank">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"
                 className={styles.social_icon}
               />
-            </a>
-            <a href="https://twitter.com" target="_blank">
+            </Link>
+            <Link href="https://twitter.com" target="_blank">
               <img
                 src="https://w7.pngwing.com/pngs/421/879/png-transparent-twitter-logo-social-media-iphone-organization-logo-twitter-computer-network-leaf-media.png"
                 className={styles.social_icon}
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -108,6 +114,10 @@ export default function Navbar() {
         <img
           src="https://images.news18.com/assam/uploads/2020/11/desktop-assam-navlogo.png"
           alt="website-logo"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/");
+          }}
         />
       </div>
       <div className={styles.second_half}>
@@ -125,29 +135,29 @@ export default function Navbar() {
               style={{ color: "rgb(0, 0, 0, 0.6)" }}></i>
           </div>
           <div className={styles.follow_icons}>
-            <a href="https://facebook.com/" target="_blank">
+            <Link href="https://facebook.com/" target="_blank">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"
                 className={styles.social_icon}
               />
-            </a>
-            <a href="https://twitter.com" target="_blank">
+            </Link>
+            <Link href="https://twitter.com" target="_blank">
               <img
                 src="https://w7.pngwing.com/pngs/421/879/png-transparent-twitter-logo-social-media-iphone-organization-logo-twitter-computer-network-leaf-media.png"
                 className={styles.social_icon}
               />
-            </a>
+            </Link>
           </div>
         </div>
         <div className={styles.links} id="link">
-          <a href="#">অসম</a>
-          <a href="#">দেশ</a>
-          <a href="#">অপৰাধনামা</a>
-          <a href="#">মনোৰঞ্জন</a>
-          <a href="#">ব্যৱসায়</a>
-          <a href="#">ক্ৰীড়া</a>
-          <a href="#">জীৱনশৈলী</a>
-          <a href="#">প্ৰযুক্তি</a>
+          <Link to="/axom">অসম</Link>
+          <Link to="/country">দেশ</Link>
+          <Link to="/crime">অপৰাধনামা</Link>
+          <Link to="/entertainment">মনোৰঞ্জন</Link>
+          <Link to="/bussiness">ব্যৱসায়</Link>
+          <Link to="/sports">ক্ৰীড়া</Link>
+          {/* <Link to="/">জীৱনশৈলী</Link> */}
+          <Link to="/technology">প্ৰযুক্তি</Link>
         </div>
       </div>
     </div>
